@@ -28,8 +28,6 @@ class Histogram1D[T : Numeric](frequencies : Array[T], binEdges : List[Array[Dou
 
 object Histogram
 {
-
-
   private def make_edge_params(values : Array[Double], binCount : Int) = {
     val minEdge = values.min
     val maxEdge = values.max

@@ -1,4 +1,4 @@
-name := "Schist"
+name := "schist"
 
 version := "0.1"
 

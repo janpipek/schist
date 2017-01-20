@@ -4,7 +4,7 @@ import org.jfree.chart._
 import org.jfree.data.xy.DefaultXYDataset
 
 package object ui {
-  def plot(histogram: Histogram1D[Double]) : Unit = {
+  def plot[T: Numeric](histogram: Histogram1D[T]) : Unit = {
     val dataset = new DefaultXYDataset
     val x = histogram.binEdges.toArray
     val y = histogram.asDouble.frequencies

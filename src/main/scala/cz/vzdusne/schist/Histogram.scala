@@ -1,9 +1,8 @@
 package cz.vzdusne.schist
-import scala.reflect.{ClassTag, classTag}
 
 
 abstract class Histogram[T : Numeric](frequencies : Array[T], binEdges : List[Array[Double]]) /* (implicit num: Numeric[T]) */ {
-  private val numerics = implicitly[Numeric[T]]
+  protected val numerics = implicitly[Numeric[T]]
 
   protected var frequencies_ : Array[T] = frequencies
   protected var binEdges_ : List[Array[Double]] = binEdges

@@ -1,7 +1,7 @@
 package cz.vzdusne.schist
 
 
-abstract class Histogram[T <: AnyVal](frequencies : Array[T], binEdges : List[Array[Double]]) {
+abstract class Histogram[T](frequencies : Array[T], binEdges : List[Array[Double]]) {
   protected var frequencies_ : Array[T] = frequencies
   protected var binEdges_ : List[Array[Double]] = binEdges
 
@@ -9,7 +9,7 @@ abstract class Histogram[T <: AnyVal](frequencies : Array[T], binEdges : List[Ar
   // def binEdges : Seq[Seq[U]] = binEdges_
 }
 
-class Histogram1D[T <: AnyVal](frequencies : Array[T], binEdges : List[Array[Double]]) extends Histogram[T](frequencies, binEdges) {
+class Histogram1D[T](frequencies : Array[T], binEdges : List[Array[Double]]) extends Histogram[T](frequencies, binEdges) {
   def this(frequencies : Array[T], binEdges : Array[Double]) = this(frequencies, List(binEdges))
 }
 
@@ -29,7 +29,7 @@ object Histogram
   private def findBin(value : Double, minEdge : Double, maxEdge: Double, step: Double, binCount : Int) : Int =
     if (value == maxEdge) binCount - 1 else ((value - minEdge) / step).toInt
 
-  def h1(values : Array[Double], binCount : Int): Histogram[Int] =
+  def h1(values : Array[Double], binCount : Int): Histogram1D[Int] =
   {
     val (minEdge, maxEdge, step) = make_edge_params(values, binCount)
     val binEdges = make_edges(minEdge, maxEdge, step, binCount)
@@ -43,7 +43,7 @@ object Histogram
     new Histogram1D(frequencies, binEdges)
   }
 
-  def h1(values : Array[Double], weights : Array[Double], binCount : Int): Histogram[Double] =
+  def h1(values : Array[Double], weights : Array[Double], binCount : Int): Histogram1D[Double] =
   {
     val (minEdge, maxEdge, step) = make_edge_params(values, binCount)
     val binEdges = make_edges(minEdge, maxEdge, step, binCount)
@@ -59,6 +59,6 @@ object Histogram
     new Histogram1D(frequencies, List(binEdges))
   }
 
-  def h1(values : Array[Double], weights : Array[Double]): Histogram[Double] = h1(values, weights, 10)
-  def h1(values : Array[Double]): Histogram[Int] = h1(values, 10)
+  def h1(values : Array[Double], weights : Array[Double]): Histogram1D[Double] = h1(values, weights, 10)
+  def h1(values : Array[Double]): Histogram1D[Int] = h1(values, 10)
 }

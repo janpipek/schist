@@ -27,14 +27,14 @@ class Histogram1D[T : Numeric](frequencies : Array[T], binEdges : List[Array[Dou
 
 object Histogram
 {
-  private def make_edge_params(values : Array[Double], binCount : Int) = {
+  private def makeEdgeParams(values : Array[Double], binCount : Int) = {
     val minEdge = values.min
     val maxEdge = values.max
     val step = (maxEdge - minEdge) / binCount
     (minEdge, maxEdge, step)
   }
 
-  private def make_edges(minEdge : Double, maxEdge : Double, step : Double, binCount : Int) : Array[Double] = {
+  private def makeEdges(minEdge : Double, maxEdge : Double, step : Double, binCount : Int) : Array[Double] = {
     ((0 until binCount - 1).map { i => i * step + minEdge }.toList ::: List(maxEdge)).toArray
   }
 
@@ -43,8 +43,8 @@ object Histogram
 
   def h1(values : Array[Double], binCount : Int): Histogram1D[Int] =
   {
-    val (minEdge, maxEdge, step) = make_edge_params(values, binCount)
-    val binEdges = make_edges(minEdge, maxEdge, step, binCount)
+    val (minEdge, maxEdge, step) = makeEdgeParams(values, binCount)
+    val binEdges = makeEdges(minEdge, maxEdge, step, binCount)
     val frequencies : Array[Int] = Array.fill(binCount)(0)
 
     values.foreach { x =>
@@ -57,8 +57,8 @@ object Histogram
 
   def h1(values : Array[Double], weights : Array[Double], binCount : Int): Histogram1D[Double] =
   {
-    val (minEdge, maxEdge, step) = make_edge_params(values, binCount)
-    val binEdges = make_edges(minEdge, maxEdge, step, binCount)
+    val (minEdge, maxEdge, step) = makeEdgeParams(values, binCount)
+    val binEdges = makeEdges(minEdge, maxEdge, step, binCount)
     val frequencies : Array[Double] = Array.fill(binCount)(0.0)
 
     val pairs = values zip weights

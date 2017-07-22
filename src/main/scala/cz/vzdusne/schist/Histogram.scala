@@ -1,7 +1,6 @@
 package cz.vzdusne.schist
 
-
-abstract class Histogram[T : Numeric](frequencies : Array[T], binEdges : List[Array[Double]]) /* (implicit num: Numeric[T]) */ {
+abstract class Histogram[T : Numeric](frequencies : Array[T], binEdges : List[Array[Double]]) {
   protected val numerics = implicitly[Numeric[T]]
 
   protected var frequencies_ : Array[T] = frequencies
@@ -12,9 +11,6 @@ abstract class Histogram[T : Numeric](frequencies : Array[T], binEdges : List[Ar
   protected def frequenciesAsInt : Array[Int] = frequencies_.map(x => numerics.toInt(x))
   protected def frequenciesAsFloat : Array[Float] = frequencies_.map(x => numerics.toFloat(x))
   protected def frequenciesAsLong : Array[Long] = frequencies_.map(x => numerics.toLong(x))
-
-  // def frequenciesAsInt : Array[Int] = frequencies_.map((x : T) => num.toInt(x))*/
-  // def binEdges : Seq[Seq[U]] = binEdges_
 }
 
 class Histogram1D[T : Numeric](frequencies : Array[T], binEdges : List[Array[Double]]) extends Histogram[T](frequencies, binEdges) {
